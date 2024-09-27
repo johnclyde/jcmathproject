@@ -1,0 +1,33 @@
+name: Deploy to Firebase Functions on merge
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/firebase-functions-merge.yml"
+      - "functions/**"
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Yarn
+        run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn install
+        working-directory: ./functions
+      - name: Build
+        run: yarn build
+        working-directory: ./functions
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+      - name: Deploy to Firebase Functions
+        run: |
+          cd functions
+          firebase deploy --only functions --token "$FIREBASE_TOKEN"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

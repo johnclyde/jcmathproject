@@ -1,0 +1,43 @@
+.simplified-banzuke {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.simplified-banzuke ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rikishi-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.rikishi-card.kachi-koshi {
+  background-color: #d4edda;
+}
+
+.rikishi-card.make-koshi {
+  background-color: #f8d7da;
+}
+
+.rank {
+  font-weight: bold;
+  width: 40px;
+}
+
+.name {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.wins {
+  font-style: italic;
+}

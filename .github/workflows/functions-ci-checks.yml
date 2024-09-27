@@ -1,0 +1,44 @@
+name: Functions Code Checks
+
+on:
+  pull_request:
+    paths:
+      - "functions/**"
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: yarn install
+        working-directory: ./functions
+
+      - name: Biome Lint
+        run: yarn lint
+        working-directory: ./functions
+
+      - name: Run TypeScript compilation
+        run: yarn build
+        working-directory: ./functions
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: yarn install
+        working-directory: ./functions
+      - name: Run tests
+        run: yarn test
+        working-directory: ./functions
